@@ -1,0 +1,2 @@
+#!/bin/bash
+thin -R `dirname $0`/../lib/private_gem_server/config.ru "$@"
