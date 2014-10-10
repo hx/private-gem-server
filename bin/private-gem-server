@@ -1,2 +1,5 @@
-#!/bin/bash
-thin -R `dirname $0`/../lib/private_gem_server/config.ru "$@"
+#!/usr/bin/env ruby
+require 'shellwords'
+rackup_path = File.expand_path('../../lib/private_gem_server/config.ru', __FILE__)
+escaped_args = ARGV.map { |arg| Shellwords.escape arg }.join ' '
+system "thin -R #{rackup_path} #{escaped_args}"
