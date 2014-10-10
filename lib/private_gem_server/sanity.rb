@@ -4,6 +4,12 @@ module PrivateGemServer
   module Sanity
     def self.check!
 
+      # Make sure the git binary is installed
+      fail! 'Please install git' if `which git` == ''
+
+      # Make sure the gem executable is present
+      fail! 'Cannot run `gem`' if `which gem` == ''
+
       # Make sure we have a valid config file
       begin
         config = YAML.load_file ENV['GEM_SOURCES']
