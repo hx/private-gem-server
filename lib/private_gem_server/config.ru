@@ -18,6 +18,12 @@ puts "Reading sources from #{ENV['GEM_SOURCES']}"
 log_path = ENV['GEM_SERVER_LOG']
 PrivateGemServer.logger = Logger.new(log_path) if log_path
 
-use Rack::TrafficLogger, STDOUT, colors: true
+use Rack::TrafficLogger,
+    STDOUT,
+    colors: true,
+    request_bodies: false,
+    request_headers: false,
+    response_bodies: false,
+    response_headers: false
 use PrivateGemServer::Scanner, ENV['GEM_SOURCES'], "#{ENV['GEM_STORE']}/_working"
 run PrivateGemServer::Server
