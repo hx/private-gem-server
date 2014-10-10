@@ -6,18 +6,17 @@ require 'yaml'
 
 ENV['GEM_STORE'] ||= `pwd`.chomp
 
-begin
-  YAML.load_file ENV['GEM_SOURCES']
-rescue
-  STDERR << "Please supply a path to your gem sources YAML file in the GEM_SOURCES environment variable.\n"
-  exit 1
-end
+PrivateGemServer::Sanity.check!
 
 Geminabox.data = File.expand_path ENV['GEM_STORE']
 Geminabox.settings.data = Geminabox.data
 Geminabox.rubygems_proxy = true
 
-puts "Serving gems from #{Geminabox.data}"
+puts "Working from #{Geminabox.data}"
+puts "Reading sources from #{ENV['GEM_SOURCES']}"
+
+log_path = ENV['GEM_SERVER_LOG']
+PrivateGemServer.logger = Logger.new(log_path) if log_path
 
 use Rack::TrafficLogger, STDOUT, colors: true
 use PrivateGemServer::Scanner, ENV['GEM_SOURCES'], "#{ENV['GEM_STORE']}/_working"

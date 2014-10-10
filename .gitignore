@@ -20,6 +20,8 @@ tmp
 *.o
 *.a
 mkmf.log
+/log/
+/test*.yml
 
 # For IDEA:
 /private-gem-server.iml
