@@ -88,8 +88,9 @@ module PrivateGemServer
       end
 
       def build_version!(version)
-        run! "git checkout tags/#{e version} && gem build #{e name}.gemspec", cwd: repo_path, output: logger, error: logger
-        PrivateGemServer.add "#{repo_path}/#{name}-#{version[/\d.*/]}.gem"
+        target_path = Pathname "#{repo_path}/#{name}-#{version[/\d.*/]}.gem"
+        run! "git checkout tags/#{e version} && gem build #{e name}.gemspec", cwd: repo_path, output: logger, error: logger unless target_path.exist?
+        PrivateGemServer.add target_path if target_path.exist?
       end
 
       def e(arg)

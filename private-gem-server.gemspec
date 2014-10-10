@@ -20,6 +20,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'thin', '~> 1.6'
   spec.add_dependency 'geminabox', '~> 0.1'
-  spec.add_dependency 'rack-traffic-logger', '~> 0.1'
 
 end
