@@ -28,6 +28,8 @@ Path of a log file to which the server should write.
 
 Path of a YAML file containing a list of gems to be served.
 
+__Note__: In order for gems to be discovered, they must be git tagged and that tag needs to match the gem version e.g. "git tag v1.2.5"
+
 ## Sources
 
 Here's an example sources file:
